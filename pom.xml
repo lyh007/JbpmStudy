@@ -131,13 +131,25 @@
         <dependency>
             <groupId>org.jbpm.jbpm4</groupId>
             <artifactId>jbpm-log</artifactId>
-            <version>4.0</version>
+            <version>4.3</version>
         </dependency>
         <dependency>
             <groupId>org.jbpm.jbpm4</groupId>
             <artifactId>jbpm-db</artifactId>
             <version>4.0</version>
         </dependency>
+        <!--运行例子所需包-->
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp-wiser</artifactId>
+            <version>1.2</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="ScriptExpression" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="17,19,48,48">
+    <transition to="invoke script" />
+  </start>
+
+  <script name="invoke script" 
+          expr="Send packet to #{order.address}"
+          var="text"
+          g="96,16,104,52">
+
+    <transition to="wait" />
+  </script>
+  
+  <state name="wait" g="232,16,80,52"/>
+
+</process>

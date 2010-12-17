@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="Java" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="20,20,48,48">
+    <transition to="greet" />
+  </start>
+
+  <java name="greet" 
+        class="org.jbpm.examples.java.JohnDoe"
+        method="hello"
+        var="answer"
+        g="96,16,83,52">
+        
+    <field name="state"><string value="fine"/></field>
+    <arg><string value="Hi, how are you?"/></arg>
+    
+    <transition to="shake hand" />
+  </java>
+  
+  <java name="shake hand" 
+        expr="#{hand}"
+        method="shake"
+        var="hand"
+        g="215,17,99,52">
+        
+    <arg><object expr="#{joesmoe.handshakes.force}"/></arg>
+    <arg><object expr="#{joesmoe.handshakes.duration}"/></arg>
+    
+    <transition to="wait" />
+  </java>
+
+  <state name="wait" g="352,17,88,52"/>
+
+</process>

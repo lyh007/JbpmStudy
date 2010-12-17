@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="ExclusiveGatewayNormal"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schema.omg.org/spec/BPMN/2.0 ../../../../../../../../../../bpmn/src/main/resources/BPMN20.xsd"
+	xmlns="http://schema.omg.org/spec/BPMN/2.0" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://jbpm.org/example/bpmn2/parallel_gateway">
+
+	<process id="parallelGateway" name="BPMN2 example parallel gateway">
+	
+		<startEvent id="Start" />
+
+		<sequenceFlow id="flow1" name="fromStartToSplit"
+			sourceRef="Start"
+			targetRef="parallelGatewaySplit"  />
+
+		<parallelGateway id="parallelGatewaySplit" name="Split" 
+		  gatewayDirection="diverging"/>
+
+		<sequenceFlow id="flow2a" name="Leg 1"
+			sourceRef="parallelGatewaySplit"
+			targetRef="prepareShipment" />
+			
+		<userTask id="prepareShipment" name="Prepare shipment" implementation="other" />
+		
+		<sequenceFlow id="flow2b" name="fromPrepareShipmentToJoin"
+			sourceRef="prepareShipment"
+			targetRef="parallelGatewayJoin"  />
+			
+		<sequenceFlow id="flow3a" name="Leg 2" 
+			sourceRef="parallelGatewaySplit"
+			targetRef="billCustomer" />
+			
+		<userTask id="billCustomer" name="Bill customer" implementation="other" />
+		
+		<sequenceFlow id="flow3b" name="fromLeg2ToJoin"
+			sourceRef="billCustomer"
+			targetRef="parallelGatewayJoin"  />
+
+		<parallelGateway id="parallelGatewayJoin" name="Join" 
+			gatewayDirection="converging"/>
+			
+		<sequenceFlow id="flow4" 
+			sourceRef="parallelGatewayJoin"
+			targetRef="End">
+		</sequenceFlow>
+
+		<endEvent id="End" name="End" />
+		
+	</process>
+</definitions>

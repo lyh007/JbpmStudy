@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="EndMultiple" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="16,96,48,48">
+    <transition to="get return code" name=""/>
+  </start>
+  
+  <state g="96,94,111,52" name="get return code">
+    <transition g="151,60:-36,11" name="200" to="ok"/>
+    <transition g=":-16,-27" name="400" to="bad request"/>
+    <transition g="151,183:-33,-32" name="500" to="internal server error"/>
+  </state>
+  
+  <end g="238,37,48,48" name="ok"/>
+  <end g="238,98,48,48" name="bad request"/>
+  <end g="240,160,48,48" name="internal server error"/>
+  
+</process>

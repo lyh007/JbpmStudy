@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="TimerEvent" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="19,50,48,48">
+    <transition to="guardedWait" />
+  </start>
+
+  <state name="guardedWait" g="98,46,127,52">
+    <on event="timeout">
+      <timer duedate="10 minutes"/>
+      <event-listener class="org.jbpm.examples.timer.event.Escalate" />
+    </on>
+    <transition name="go on" to="next step"  g="-16,-17" />
+  </state>
+  
+  <state name="next step" g="283,46,83,53" />
+
+</process>

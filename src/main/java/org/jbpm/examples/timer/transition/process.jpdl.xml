@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="TimerTransition" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="19,50,48,48">
+    <transition to="guardedWait" />
+  </start>
+
+  <state name="guardedWait" g="98,46,127,52">
+    <transition name="go on" to="next step" g="-16,-17"/>
+    <transition name="timeout" to="escalation" g="-43,-16">
+      <timer duedate="5 seconds" /> 
+    </transition>
+  </state>
+  
+  <state name="next step" g="283,46,83,53"/>
+  <state name="escalation" g="118,140,88,52" />
+
+</process>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="StateSequence" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="16,18,48,48">
+    <transition to="a" />
+  </start>
+  
+  <state name="a" g="96,16,75,52">
+    <transition to="b" />
+  </state>
+  
+  <state name="b" g="203,16,73,52">
+    <transition to="c" />
+  </state>
+  
+  <state name="c" g="308,16,76,52" />
+
+</process>

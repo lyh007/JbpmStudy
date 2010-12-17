@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="TaskSwimlane" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <swimlane name="sales representative"
+            candidate-groups="sales-dept" />
+
+  <start g="20,20,48,48">
+    <transition to="enter order data" />
+  </start>
+  
+  <task name="enter order data"
+        swimlane="sales representative" 
+        g="96,16,127,52">
+
+    <transition to="calculate quote"/>
+  </task>
+
+  <task 
+      name="calculate quote" 
+      swimlane="sales representative"
+      g="255,16,111,52">
+  </task>
+
+</process>

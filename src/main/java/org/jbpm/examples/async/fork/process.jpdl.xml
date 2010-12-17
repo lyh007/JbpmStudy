@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="AsyncFork" xmlns="http://jbpm.org/4.3/jpdl">
+
+	<start g="22,69,80,40">
+		<transition to="fork"/>
+	</start>
+
+	<fork g="99,68,80,40" name="fork">
+	  <on event="end" continue="exclusive" />
+    <transition g="122,41:" to="ship goods"/>
+    <transition g="123,142:" to="send bill"/>
+	</fork>
+
+	<java class="org.jbpm.examples.async.fork.Application" g="159,17,98,50" method="shipGoods" name="ship goods">
+		<transition g="297,42:" to="join"/>
+	</java>
+
+  <java class="org.jbpm.examples.async.fork.Application" g="159,117,98,50" method="sendBill" name="send bill">
+    <transition g="297,141:" to="join"/>
+  </java>
+
+  <join g="274,66,80,40" name="join">
+    <transition to="end"/>
+  </join>
+   
+  <end g="353,67,48,48" name="end"/>
+
+</process>

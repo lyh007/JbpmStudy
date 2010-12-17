@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schema.omg.org/spec/BPMN/2.0 ../../../../../../../../../../bpmn/src/main/resources/BPMN20.xsd"
+	xmlns="http://schema.omg.org/spec/BPMN/2.0" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://jbpm.org/example/bpmn2/receiveTaskJava">
+
+	<process id="receiveTaskJava" name="Bpmn 2.0 example receive task Java">
+
+		<startEvent id="Start" />
+
+		<sequenceFlow id="flow1" sourceRef="Start"
+			targetRef="receiveTask" />
+
+		<receiveTask id="receiveTask" name="wait" />
+		
+		<sequenceFlow id="flow2" sourceRef="receiveTask"
+			targetRef="End" />
+
+		<endEvent id="End" name="End" />
+		
+	</process>
+</definitions>

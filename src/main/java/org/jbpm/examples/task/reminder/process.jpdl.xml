@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="TaskReminder" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="20,20,48,48">
+    <transition to="review"/>
+  </start>
+
+  <task name="review" 
+        assignee="#{order.owner}"
+        g="96,16,127,52">
+     <reminder duedate="2 days" repeat="1 day"/> 
+     <transition to="wait"/>
+  </task>
+  
+  <state name="wait" g="255,16,88,52"/>
+
+</process>

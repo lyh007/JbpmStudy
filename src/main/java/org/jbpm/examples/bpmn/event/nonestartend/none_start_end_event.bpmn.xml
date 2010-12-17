@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schema.omg.org/spec/BPMN/2.0 ../../../../../../../../../../bpmn/src/main/resources/BPMN20.xsd"
+  xmlns="http://schema.omg.org/spec/BPMN/2.0"
+  typeLanguage="http://www.w3.org/2001/XMLSchema"
+  expressionLanguage="http://www.w3.org/1999/XPath" 
+  targetNamespace="http://jbpm.org/example/bpmn2/none_start_end_event"
+  xmlns:jbpm="http://jbpm.org/bpmn2">
+
+  <process id="noneStartEndEvent" name="BPMN2 Example none start and end event">
+
+    <startEvent id="start" />
+
+    <sequenceFlow id="flow1" name="fromStartToEnd"
+      sourceRef="start" targetRef="end" />
+
+    <endEvent id="end" name="End" />
+
+  </process>
+  
+</definitions>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="SubProcessReview" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="25,101,48,48">
+    <transition to="get approval"/>
+  </start>
+
+  <task name="get approval"
+        assignee="johndoe" 
+        g="107,97,127,52">
+
+    <transition name="ok" to="ok" g="171,71:9,-16"/>
+    <transition name="nok" to="nok" g="-16,-16"/>
+    <transition name="reject" to="reject" g="170,179:8,3"/>
+  </task>
+  
+  <end name="ok" g="269,48,88,52" />
+  <end name="nok" g="270,101,88,52" />
+  <end name="reject" g="270,156,88,52"/>
+
+</process>

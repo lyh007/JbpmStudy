@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://schema.omg.org/spec/BPMN/2.0 ../../../../../../../../../../bpmn/src/main/resources/BPMN20.xsd"
+  xmlns="http://schema.omg.org/spec/BPMN/2.0"
+  typeLanguage="http://www.w3.org/2001/XMLSchema"
+  expressionLanguage="http://www.w3.org/1999/XPath" 
+  targetNamespace="http://jbpm.org/example/bpmn2/exclusive_gateway"
+  xmlns:jbpm="http://jbpm.org/bpmn2">
+
+  <process id="exclusiveGatewayDefaultSeqFlow" name="BPMN2 Example exclusive gateway with a default sequence flow">
+
+    <startEvent id="start" />
+
+   <sequenceFlow id="flow1" name="fromStartToExclusiveGateway"
+      sourceRef="start" targetRef="decision" />
+      
+   <exclusiveGateway id="decision" name="decideBasedOnAmountAndBankType" default="flow2"/>
+   
+   <sequenceFlow id="flow2" name="fromGatewayToStandard"
+      sourceRef="decision" targetRef="standard">
+   </sequenceFlow>
+      
+   <sequenceFlow id="flow3" name="fromGatewayToEnEnough"
+      sourceRef="decision" targetRef="largeDeposit">
+      <conditionExpression xsi:type="tFormalExpression">${amount &gt;= 500 &amp;&amp; bankType != 'foreign'}</conditionExpression>
+   </sequenceFlow>
+      
+   <sequenceFlow id="flow4" name="fromGatewayToMoreThanEnough"
+      sourceRef="decision" targetRef="foreignBank">
+      <conditionExpression xsi:type="tFormalExpression">${bankType == 'foreign'}</conditionExpression>
+   </sequenceFlow>   
+
+   <endEvent id="standard" name="standard end" />
+   
+   <endEvent id="largeDeposit" name="large deposit" />
+   
+   <endEvent id="foreignBank" name="foreign bank" />
+
+  </process>
+  
+</definitions>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="Hql" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="17,20,48,48">
+    <transition to="get task names" />
+  </start>
+
+  <hql name="get task names"
+       var="tasknames with i"
+       g="96,16,115,52">
+    <query>
+      select task.name
+      from org.jbpm.pvm.internal.task.TaskImpl as task
+      where task.name like :taskName
+    </query>
+    <parameters>
+      <string name="taskName" value="%i%" />
+    </parameters>
+    <transition to="count tasks" />
+  </hql>
+  
+  <hql name="count tasks"
+       var="tasks"
+       unique="true"
+       g="243,16,95,52">
+    <query>
+      select count(*)
+      from org.jbpm.pvm.internal.task.TaskImpl
+    </query>
+    <transition to="wait" />
+  </hql>
+
+  <state name="wait" g="370,18,96,48"/>
+
+</process>

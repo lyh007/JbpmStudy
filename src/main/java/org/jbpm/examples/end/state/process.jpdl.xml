@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="EndState" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="16,96,48,48">
+     <transition to="get return code"/>
+  </start>
+
+  <state name="get return code" g="96,94,110,52">
+    <transition name="200" to="ok" g="150,63:-36,11"/>
+    <transition name="400" to="bad request" g=":-16,-27"/>
+    <transition name="500" to="internal server error" g="150,177:-33,-32"/>
+  </state>
+
+  <end name="ok" state="completed" g="239,40,48,48"/>
+  <end-cancel name="bad request" g="239,97,48,48"/>
+  <end-error name="internal server error" g="240,154,48,48"/>
+
+</process>

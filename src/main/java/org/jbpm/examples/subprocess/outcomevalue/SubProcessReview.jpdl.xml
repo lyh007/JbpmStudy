@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="SubProcessReview" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="20,20,48,48">
+    <transition to="get approval"/>
+  </start>
+
+  <task name="get approval"
+        assignee="johndoe" 
+        g="96,16,127,52">
+
+    <transition to="end"/>
+  </task>
+  
+  <end name="end" g="254,19,88,52" />
+
+</process>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="ConcurrencyGraphBased" xmlns="http://jbpm.org/4.3/jpdl">
+
+   <start g="16,102,48,48">
+      <transition to="fork"/>
+   </start>
+   
+   <fork name="fork" g="96,102,48,48">
+      <transition to="send invoice" g="120,41:"/>
+      <transition to="load truck"/>
+      <transition to="print shipping documents" g="120,213:"/>
+   </fork>
+   
+   <state name="send invoice" g="176,16,149,52">
+      <transition to="final join" g="606,41:"/>
+   </state>
+   
+   <state name="load truck" g="176,100,149,52">
+      <transition to="shipping join" g="377,126:"/>
+   </state>
+   
+   <state name="print shipping documents" g="176,184,149,58">
+      <transition to="shipping join" g="378,213:"/>
+   </state>
+   
+   <join name="shipping join" g="353,145,48,48">
+      <transition to="drive truck to destination"/>
+   </join>
+   
+   <state name="drive truck to destination" g="431,140,148,52">
+      <transition to="final join" g="607,165:"/>
+   </state>
+   
+   <join name="final join" g="583,73,48,48">
+      <transition to="end"/>
+   </join>
+   
+   <end name="end" g="666,74,48,48"/>
+
+</process>

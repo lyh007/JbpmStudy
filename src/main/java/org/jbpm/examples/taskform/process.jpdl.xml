@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="VacationRequest" xmlns="http://jbpm.org/4.3/jpdl">
+  <start form="org/jbpm/examples/taskform/request_vacation.ftl" g="16,56,48,48" name="start">
+    <transition to="verify_request"/>
+  </start>
+  <task candidate-users="mike,peter" form="org/jbpm/examples/taskform/verify_request.ftl" g="96,54,178,52" name="verify_request">
+    <transition g="-34,9" name="reject" to="vacation_rejected"/>
+    <transition g="-46,-26" name="accept" to="vacation_accepted"/>
+  </task>
+  <end g="306,16,48,48" name="vacation_accepted"/>
+  <end g="306,96,48,48" name="vacation_rejected"/>
+</process>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="Sql" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="16,20,48,48">
+    <transition to="get task names" />
+  </start>
+
+  <sql name="get task names"
+       var="tasknames with i"
+       g="96,16,126,52">
+    <query>
+      select NAME_
+      from JBPM4_TASK
+      where NAME_ like :name
+    </query>
+    <parameters>
+      <string name="name" value="%i%" />
+    </parameters>
+    <transition to="count tasks" />
+  </sql>
+  
+  <sql name="count tasks"
+       var="tasks"
+       unique="true"
+       g="254,16,92,52">
+    <query>
+      select count(*)
+      from JBPM4_TASK
+    </query>
+    <transition to="wait" />
+  </sql>
+
+  <state name="wait" g="378,18,94,48"/>
+
+</process>

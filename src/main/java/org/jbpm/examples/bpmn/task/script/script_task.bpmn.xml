@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="ExclusiveGatewayNormal"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schema.omg.org/spec/BPMN/2.0 ../../../../../../../../../../bpmn/src/main/resources/BPMN20.xsd"
+	xmlns="http://schema.omg.org/spec/BPMN/2.0" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://jbpm.org/example/bpmn2/scriptTask">
+
+	<process id="ScriptTask" name="ScriptTask">
+
+		<startEvent id="Start" />
+
+		<sequenceFlow id="flow1" sourceRef="Start"
+			targetRef="scriptTask" name="Start->ScriptTask" />
+
+		<scriptTask id="scriptTask" name="Script Task" scriptLanguage="bsh">
+			<script><![CDATA[
+for(int i=0; i < input.length; i++){
+  System.out.println(input[i] + " x 2 = " + (input[i]*2));
+}]]>
+			</script>
+		</scriptTask>
+		
+		<sequenceFlow id="flow2" sourceRef="scriptTask"
+			targetRef="End" />
+
+		<endEvent id="End" name="End" />
+		
+	</process>
+</definitions>

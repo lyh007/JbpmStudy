@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions id="ServiceTaskJava"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://schema.omg.org/spec/BPMN/2.0 ../../../../../../../../../../bpmn/src/main/resources/BPMN20.xsd"
+	xmlns:bpmn="http://schema.omg.org/spec/BPMN/2.0" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://sample.bpmn.camunda.com/"
+	xmlns:jbpm="http://jbpm.org/4.0/bpmn2">
+
+	<bpmn:itemDefinition id="itemDefinition1" >
+		<jbpm:arg>
+			<jbpm:object expr="#{var1}" />
+		</jbpm:arg>
+	</bpmn:itemDefinition>
+	
+	<bpmn:itemDefinition id="itemDefinition2">
+		<jbpm:var name="returnVar" />
+	</bpmn:itemDefinition>
+	
+	<bpmn:message id="inputMessage" name="input message"
+		structureRef="itemDefinition1"></bpmn:message>
+
+	<bpmn:message id="outputMessage" name="output message"
+		structureRef="itemDefinition2">
+	</bpmn:message>
+
+	<bpmn:interface id="myInterface" name="org.jbpm.examples.bpmn.task.service.JavaService">
+		<bpmn:operation id="myOperation" name="myMethod">
+			<bpmn:inMessageRef>inputMessage</bpmn:inMessageRef>
+			<bpmn:outMessageRef>outputMessage</bpmn:outMessageRef>
+		</bpmn:operation>
+	</bpmn:interface>
+
+	<bpmn:process id="ServiceTaskJavaProcess" name="BPMN 2.0 example java service task">
+
+		<bpmn:startEvent id="Start" />
+
+		<bpmn:sequenceFlow id="flow1" name="fromStartToServiceTask"
+			sourceRef="Start" targetRef="ServiceTask" />
+
+		<bpmn:serviceTask id="ServiceTask" name="service task"
+			implementation="Other" operationRef="myOperation">
+		</bpmn:serviceTask>
+
+		<bpmn:sequenceFlow id="flow2" name="fromServiceTaskToUT1"
+			sourceRef="ServiceTask" targetRef="UT1" />
+
+		<bpmn:userTask id="UT1" name="bla" implementation="other" />
+
+		<bpmn:sequenceFlow id="flow3" name="fromUT1toEnd"
+			sourceRef="UT1" targetRef="End" />
+
+		<bpmn:endEvent id="End" name="End" />
+
+	</bpmn:process>
+</bpmn:definitions>

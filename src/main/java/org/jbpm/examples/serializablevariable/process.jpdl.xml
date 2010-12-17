@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="SerializableVariable" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="20,20,48,48">
+    <transition to="wait before update" />
+  </start>
+  
+  <state name="wait before update">
+    <transition to="update serialized variables" />
+  </state>
+
+  <custom name="update serialized variables" 
+        class="org.jbpm.examples.serializablevariable.UpdateSerializedVariables"
+        g="96,16,100,52">
+        
+    <transition to="wait after update" />
+  </custom>
+  
+  <state name="wait after update" g="231,19,80,40"/>
+
+</process>

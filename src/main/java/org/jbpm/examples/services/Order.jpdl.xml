@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="Order" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="16,19,48,48">
+    <transition to="receive confirmation" />
+  </start>
+  
+  <state name="receive confirmation" g="96,16,136,52">
+    <transition to="end" />
+  </state>
+  
+  <end name="end" g="269,20,48,48"/>
+
+</process>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="SubProcessDocument" xmlns="http://jbpm.org/4.3/jpdl">
+
+  <start g="36,109,48,48">
+    <transition to="review" />
+  </start>
+
+  <sub-process name="review"
+               sub-process-key="SubProcessReview"
+               outcome="#{result}" 
+               g="118,106,99,52">
+               
+    <transition name="ok" to="next step" g="167,67:6,-19"/>
+    <transition name="nok" to="update" g="-22,-18"/>
+    <transition name="reject" to="close" g="167,200:7,3"/>
+  </sub-process>
+  
+  <state name="next step" g="255,41,88,52"/>
+  <state name="update" g="256,106,88,52"/>
+  <state name="close" g="258,175,88,52"/>
+
+</process>
