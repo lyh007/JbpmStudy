@@ -29,13 +29,15 @@ import java.io.Serializable;
  */
 public class Application implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public void generatePdf() {
-    // assume long automatic calculations here
-  }
+    public void generatePdf() {
+        System.out.println("gneratePdf");
+        // assume long automatic calculations here
+    }
 
-  public void calculatePrimes() {
-    // assume long automatic calculations here
-  }
+    public void calculatePrimes() {
+        System.out.println("calculatePrimes");
+        // assume long automatic calculations here
+    }
 }

@@ -43,7 +43,7 @@ public class AsyncActivityTest extends JbpmTestCase {
   }
 
   protected void tearDown() throws Exception {
-    repositoryService.deleteDeploymentCascade(deploymentId);
+   // repositoryService.deleteDeploymentCascade(deploymentId);
     
     super.tearDown();
   }

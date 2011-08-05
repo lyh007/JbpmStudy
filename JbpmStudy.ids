@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="jbpm" product="MySQL" version="5.0.45-community-nt" jdbc-version="3.0" driver-version="mysql-connector-java-5.1.13 ( Revision: ${bzr.revision-id} )" uuid="4613d964-91fc-4787-aaaf-e779a5917da1">
+    <extra-name-characters>#@</extra-name-characters>
+    <identifier-quote-string>`</identifier-quote-string>
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://localhost:12581/jbpm</jdbc-url>
+    <user-name>root</user-name>
+    <schema-pattern>JBPM.*</schema-pattern>
+    <default-dialect>MySQL</default-dialect>
+    <libraries>
+      <library>
+        <url>file://$PROJECT_DIR$/../../../../apache-maven-3.0/repo/mysql/mysql-connector-java/5.1.13/mysql-connector-java-5.1.13.jar</url>
+      </library>
+    </libraries>
+    <table name="jbpm4_deployment" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="NAME_" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="TIMESTAMP_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="STATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+    </table>
+    <table name="jbpm4_deployprop" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DEPLOYMENT_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="OBJNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="KEY_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="STRINGVAL_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="LONGVAL_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_DEPLPROP_DEPL" columns="DEPLOYMENT_" ref-table="jbpm4_deployment" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_DEPLPROP_DEPL" unique="false" columns="DEPLOYMENT_" />
+    </table>
+    <table name="jbpm4_execution" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="CLASS_" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" default="''" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="ACTIVITYNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PROCDEFID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="HASVARS_" sqlType="BIT" length="1" precision="0" nullable="true" jdbcType="-7" />
+      <column name="NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="KEY_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="STATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="SUSPHISTSTATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PRIORITY_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="HISACTINST_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="PARENT_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="INSTANCE_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="SUPEREXEC_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="SUBPROCINST_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="PARENT_IDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_EXEC_PARENT" columns="PARENT_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_EXEC_INSTANCE" columns="INSTANCE_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_EXEC_SUBPI" columns="SUBPROCINST_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_EXEC_SUPEREXEC" columns="SUPEREXEC_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="ID_" unique="true" columns="ID_" />
+      <index name="IDX_EXEC_SUBPI" unique="false" columns="SUBPROCINST_" />
+      <index name="IDX_EXEC_PARENT" unique="false" columns="PARENT_" />
+      <index name="IDX_EXEC_SUPEREXEC" unique="false" columns="SUPEREXEC_" />
+      <index name="IDX_EXEC_INSTANCE" unique="false" columns="INSTANCE_" />
+    </table>
+    <table name="jbpm4_hist_actinst" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="CLASS_" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" default="''" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="HPROCI_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="TYPE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="EXECUTION_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ACTIVITY_NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="START_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="END_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="DURATION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="TRANSITION_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="NEXTIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="HTASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_HTI_HTASK" columns="HTASK_" ref-table="jbpm4_hist_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_HACTI_HPROCI" columns="HPROCI_" ref-table="jbpm4_hist_procinst" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_HTI_HTASK" unique="false" columns="HTASK_" />
+      <index name="IDX_HACTI_HPROCI" unique="false" columns="HPROCI_" />
+    </table>
+    <table name="jbpm4_hist_detail" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="CLASS_" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" default="''" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="USERID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="TIME_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="HPROCI_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="HPROCIIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="HACTI_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="HACTIIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="HTASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="HTASKIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="HVAR_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="HVARIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="MESSAGE_" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="OLD_STR_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="NEW_STR_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="OLD_INT_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="NEW_INT_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="OLD_TIME_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="NEW_TIME_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="PARENT_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="PARENT_IDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_HDETAIL_HACTI" columns="HACTI_" ref-table="jbpm4_hist_actinst" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_HDETAIL_HPROCI" columns="HPROCI_" ref-table="jbpm4_hist_procinst" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_HDETAIL_HTASK" columns="HTASK_" ref-table="jbpm4_hist_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_HDETAIL_HVAR" columns="HVAR_" ref-table="jbpm4_hist_var" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_HDET_HVAR" unique="false" columns="HVAR_" />
+      <index name="IDX_HDET_HACTI" unique="false" columns="HACTI_" />
+      <index name="IDX_HDET_HTASK" unique="false" columns="HTASK_" />
+      <index name="IDX_HDET_HPROCI" unique="false" columns="HPROCI_" />
+    </table>
+    <table name="jbpm4_hist_procinst" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="ID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PROCDEFID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="KEY_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="START_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="END_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="DURATION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="STATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ENDACTIVITY_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="NEXTIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+    </table>
+    <table name="jbpm4_hist_task" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="EXECUTION_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="OUTCOME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ASSIGNEE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PRIORITY_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="STATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="CREATE_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="END_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="DURATION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="NEXTIDX_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="SUPERTASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_HSUPERT_SUB" columns="SUPERTASK_" ref-table="jbpm4_hist_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_HSUPERT_SUB" unique="false" columns="SUPERTASK_" />
+    </table>
+    <table name="jbpm4_hist_var" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="PROCINSTID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="EXECUTIONID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="VARNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="VALUE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="HPROCI_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="HTASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_HVAR_HTASK" columns="HTASK_" ref-table="jbpm4_hist_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_HVAR_HPROCI" columns="HPROCI_" ref-table="jbpm4_hist_procinst" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_HVAR_HTASK" unique="false" columns="HTASK_" />
+      <index name="IDX_HVAR_HPROCI" unique="false" columns="HPROCI_" />
+    </table>
+    <table name="jbpm4_id_group" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="ID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="TYPE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PARENT_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_GROUP_PARENT" columns="PARENT_" ref-table="jbpm4_id_group" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_GROUP_PARENT" unique="false" columns="PARENT_" />
+    </table>
+    <table name="jbpm4_id_membership" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="USER_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="GROUP_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_MEM_USER" columns="USER_" ref-table="jbpm4_id_user" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_MEM_GROUP" columns="GROUP_" ref-table="jbpm4_id_group" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_MEM_GROUP" unique="false" columns="GROUP_" />
+      <index name="IDX_MEM_USER" unique="false" columns="USER_" />
+    </table>
+    <table name="jbpm4_id_user" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="ID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PASSWORD_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="GIVENNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="FAMILYNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="BUSINESSEMAIL_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+    </table>
+    <table name="jbpm4_job" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="CLASS_" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" default="''" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="DUEDATE_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="STATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ISEXCLUSIVE_" sqlType="BIT" length="1" precision="0" nullable="true" jdbcType="-7" />
+      <column name="LOCKOWNER_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="LOCKEXPTIME_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="EXCEPTION_" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="RETRIES_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="PROCESSINSTANCE_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="EXECUTION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="CFG_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="SIGNAL_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="EVENT_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="REPEAT_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_JOB_CFG" columns="CFG_" ref-table="jbpm4_lob" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_JOBRETRIES" unique="false" columns="RETRIES_" />
+      <index name="IDX_JOBDUEDATE" unique="false" columns="DUEDATE_" />
+      <index name="IDX_JOBLOCKEXP" unique="false" columns="LOCKEXPTIME_" />
+      <index name="IDX_JOB_CFG" unique="false" columns="CFG_" />
+      <index name="IDX_JOB_EXE" unique="false" columns="EXECUTION_" />
+      <index name="IDX_JOB_PRINST" unique="false" columns="PROCESSINSTANCE_" />
+    </table>
+    <table name="jbpm4_lob" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="BLOB_VALUE_" sqlType="LONGBLOB" length="2147483647" precision="0" nullable="true" jdbcType="-4" />
+      <column name="DEPLOYMENT_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="NAME_" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_LOB_DEPLOYMENT" columns="DEPLOYMENT_" ref-table="jbpm4_deployment" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_LOB_DEPLOYMENT" unique="false" columns="DEPLOYMENT_" />
+    </table>
+    <table name="jbpm4_participation" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="GROUPID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="USERID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="TYPE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="TASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="SWIMLANE_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_PART_TASK" columns="TASK_" ref-table="jbpm4_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_PART_SWIMLANE" columns="SWIMLANE_" ref-table="jbpm4_swimlane" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_PART_TASK" unique="false" columns="TASK_" />
+    </table>
+    <table name="jbpm4_property" schema="" catalog="jbpm" type="TABLE">
+      <column name="KEY_" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" default="''" />
+      <column name="VERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="VALUE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="key_" />
+    </table>
+    <table name="jbpm4_swimlane" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ASSIGNEE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="EXECUTION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_SWIMLANE_EXEC" columns="EXECUTION_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_SWIMLANE_EXEC" unique="false" columns="EXECUTION_" />
+    </table>
+    <table name="jbpm4_task" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="CLASS_" sqlType="CHAR" length="1" precision="0" nullable="false" jdbcType="1" default="''" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="DESCR_" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="STATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="SUSPHISTSTATE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ASSIGNEE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="FORM_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="PRIORITY_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="CREATE_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="DUEDATE_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="PROGRESS_" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="SIGNALLING_" sqlType="BIT" length="1" precision="0" nullable="true" jdbcType="-7" />
+      <column name="EXECUTION_ID_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="ACTIVITY_NAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="HASVARS_" sqlType="BIT" length="1" precision="0" nullable="true" jdbcType="-7" />
+      <column name="SUPERTASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="EXECUTION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="PROCINST_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="SWIMLANE_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="TASKDEFNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_TASK_SUPERTASK" columns="SUPERTASK_" ref-table="jbpm4_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_TASK_SWIML" columns="SWIMLANE_" ref-table="jbpm4_swimlane" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_TASK_SUPERTASK" unique="false" columns="SUPERTASK_" />
+    </table>
+    <table name="jbpm4_variable" schema="" catalog="jbpm" type="TABLE">
+      <column name="DBID_" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" default="" />
+      <column name="CLASS_" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" default="''" />
+      <column name="DBVERSION_" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" default="" />
+      <column name="KEY_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="CONVERTER_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="HIST_" sqlType="BIT" length="1" precision="0" nullable="true" jdbcType="-7" />
+      <column name="EXECUTION_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="TASK_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="LOB_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="DATE_VALUE_" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93" />
+      <column name="DOUBLE_VALUE_" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="CLASSNAME_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="LONG_VALUE_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <column name="STRING_VALUE_" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" />
+      <column name="TEXT_VALUE_" sqlType="LONGTEXT" length="2147483647" precision="0" nullable="true" jdbcType="-1" />
+      <column name="EXESYS_" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5" />
+      <primary-key name="PRIMARY" columns="dbid_" />
+      <foreign-key name="FK_VAR_EXECUTION" columns="EXECUTION_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_VAR_EXESYS" columns="EXESYS_" ref-table="jbpm4_execution" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_VAR_LOB" columns="LOB_" ref-table="jbpm4_lob" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <foreign-key name="FK_VAR_TASK" columns="TASK_" ref-table="jbpm4_task" ref-schema="" ref-catalog="jbpm" ref-columns="DBID_" />
+      <index name="IDX_VAR_EXESYS" unique="false" columns="EXESYS_" />
+      <index name="IDX_VAR_TASK" unique="false" columns="TASK_" />
+      <index name="IDX_VAR_EXECUTION" unique="false" columns="EXECUTION_" />
+      <index name="IDX_VAR_LOB" unique="false" columns="LOB_" />
+    </table>
+  </data-source>
+</component>

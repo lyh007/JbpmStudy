@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="demo" xmlns="http://jbpm.org/4.3/jpdl">
+	<start g="304,19,48,48" name="start1">
+		<transition g="-71,-17" name="技术支持填写申请表" to="销售人员" />
+	</start>
+	<task assignee="#{venditionUser}" form="requestSubmit.jsp" g="283,89,92,52"
+		name="销售人员">
+		<transition g="-83,-7" name="根据合同金额判断" to="exclusive1" />
+		<transition g="36,113;37,607:-31,-18" name="否决" to="end1" />
+	</task>
+	<decision expr="#{money > 50 ? '合同金额大于50W' : '合同金额小于50W'}" g="309,182,48,48"
+		name="exclusive1">
+		<transition g="-14,-16" name="合同金额大于50W" to="销售总监确认" />
+		<transition g="-79,-17" name="合同金额小于50W" to="生成License" />
+	</decision>
+	<task assignee="#{createUser}" g="95,246,92,52" name="生成License">
+		<transition g="-31,-17" name="根据License类型判断" to="exclusive2" />
+	</task>
+	<task candidate-groups="majordomo" g="468,246,92,52" name="销售总监确认">
+		<transition g="671,271;674,435;678,605:-29,-17" name="否决"
+			to="end1" />
+		<transition g="0,-16" name="同意" to="生成License" />
+	</task>
+	<decision g="64,378,48,48" name="exclusive2">
+		<handler class="org.demo.handler.JbpmDecisionHandler" />
+		<transition g="-47,-17" name="临时License" to="end1" />
+		<transition g="-62,-17" name="永久License需要再次确认" to="fork1" />
+	</decision>
+	<fork g="272,375,48,48" name="fork1">
+		<transition to="老板确认" />
+		<transition to="销售总监再次确认" />
+	</fork>
+	<task candidate-groups="majordomo" g="394,334,124,52" name="销售总监再次确认">
+		<on event="start">
+			<event-listener class="org.demo.listener.RollbackListener">
+				<field name="m_rollbackTo">
+					<string value="end1" />
+				</field>
+			</event-listener>
+		</on>
+		<transition to="join1" />
+	</task>
+	<task assignee="boss" g="410,423,92,52" name="老板确认">
+		<on event="start">
+			<event-listener class="org.demo.listener.RollbackListener">
+				<field name="m_rollbackTo">
+					<string value="end1" />
+				</field>
+			</event-listener>
+		</on>
+		<transition to="join1" />
+	</task>
+	<join g="586,387,48,48" multiplicity="2" name="join1">
+		<transition to="申请成功，5分钟后自动关闭" />
+	</join>
+	<state g="451,510,189,52" name="申请成功，5分钟后自动关闭">
+		<transition g="-47,-17" name="自动关闭" to="end1">
+			<timer duedate="1 minutes" />
+		</transition>
+	</state>
+	<end g="261,585,48,48" name="end1">
+		<on event="start">
+			<event-listener class="org.demo.listener.LogListener">
+			</event-listener>
+		</on>
+	</end>
+</process>

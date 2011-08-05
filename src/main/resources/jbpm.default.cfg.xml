@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jbpm-configuration>
+
+    <import resource="jbpm.default.scriptmanager.xml"/>
+
+    <process-engine-context>
+
+        <repository-service/>
+        <object class="org.jbpm.pvm.internal.repository.RepositoryCacheImpl"/>
+        <repository-cache/>
+        <execution-service/>
+        <history-service/>
+        <management-service/>
+        <identity-service/>
+        <task-service/>
+
+        <object class="org.jbpm.pvm.internal.id.DatabaseDbidGenerator">
+            <field name="commandService">
+                <ref object="newTxRequiredCommandService"/>
+            </field>
+        </object>
+
+        <object class="org.jbpm.pvm.internal.id.DatabaseIdComposer" init="eager"/>
+
+        <types resource="jbpm.variable.types.xml"/>
+
+        <address-resolver/>
+
+        <mail-template name='task-notification'>
+            <to users="${task.assignee}"/>
+            <subject>${task.name}</subject>
+            <text><![CDATA[Hi ${task.assignee},
+Task "${task.name}" has been assigned to you.
+${task.description}
+
+Sent by JBoss jBPM
+]]></text>
+        </mail-template>
+
+        <mail-template name='task-reminder'>
+            <to users="${task.assignee}"/>
+            <subject>${task.name}</subject>
+            <text><![CDATA[Hey ${task.assignee},
+Do not forget about task "${task.name}".
+${task.description}
+
+Sent by JBoss jBPM
+]]></text>
+        </mail-template>
+
+    </process-engine-context>
+
+    <transaction-context>
+        <repository-session/>
+        <db-session/>
+
+        <message-session/>
+        <timer-session/>
+
+        <history-sessions>
+            <object class="org.jbpm.pvm.internal.history.HistorySessionImpl"/>
+        </history-sessions>
+
+        <mail-session>
+            <mail-server>
+                <session-properties resource="jbpm.mail.properties"/>
+            </mail-server>
+        </mail-session>
+
+    </transaction-context>
+
+</jbpm-configuration>

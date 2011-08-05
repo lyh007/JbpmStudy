@@ -12,7 +12,7 @@
     <transition g="123,142:" to="send bill"/>
 	</fork>
 
-	<java class="org.jbpm.examples.async.fork.Application" g="159,17,98,50" method="shipGoods" name="ship goods">
+    <java class="org.jbpm.examples.async.fork.Application" g="159,17,98,50" method="shipGoods" name="ship goods">
 		<transition g="297,42:" to="join"/>
 	</java>
 

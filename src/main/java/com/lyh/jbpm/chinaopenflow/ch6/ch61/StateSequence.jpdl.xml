@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process name="StateSequence" xmlns="http://jbpm.org/4.3/jpdl">
+    <start name="start">
+        <transition to="a"/>
+    </start>
+    <state name="a">
+        <transition to="b"/>
+    </state>
+    <state name="b">
+        <transition to="c"/>
+    </state>
+    <state name="c">
+    </state>
+</process>

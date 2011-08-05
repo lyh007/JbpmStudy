@@ -6,14 +6,24 @@
 
 <hibernate-configuration>
     <session-factory>
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>-->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="current_session_context_class">jta</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:12581/webmail</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:12581/jbpm</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
         <property name="hibernate.current_session_context_class">thread</property>
         <!--<property name="hibernate.hbm2ddl.auto">create-drop</property>-->
         <property name="hibernate.format_sql">true</property>
+
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>-->
+        <!--<property name="current_session_context_class">thread</property>-->
+        <!--<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>-->
+        <!--<property name="hibernate.connection.url">jdbc:hsqldb:mem:.</property>-->
+        <!--<property name="hibernate.connection.username">sa</property>-->
+        <!--<property name="hibernate.connection.password"></property>-->
+        <!--<property name="hibernate.hbm2ddl.auto">create-drop</property>-->
+        <!--<property name="hibernate.format_sql">true</property>-->
 
         <mapping resource="jbpm.repository.hbm.xml"/>
         <mapping resource="jbpm.execution.hbm.xml"/>
